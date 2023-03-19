@@ -1,23 +1,62 @@
-function Meme() {
+import React from "react";
+import memesData from "../memesData.js";
+
+export default function Meme() {
+  const [meme, setMeme] = React.useState({
+    topText: "",
+    bottomText: "",
+    randomImage: "http://i.imgflip.com/1bij.jpg",
+  });
+
+  const [allMemeImages, setAllMemeImages] = React.useState(memesData);
+
+  function getMemeImage() {
+    const memesArray = allMemeImages.data.memes;
+    const randomNumber = Math.floor(Math.random() * memesArray.length);
+    const url = memesArray[randomNumber].url;
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      randomImage: url,
+    }));
+  }
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setMeme((prevMeme) => {
+      return {
+        ...prevMeme,
+        [name]: value,
+      };
+    });
+  }
+
   return (
-    <form action="/" method="post" className="form">
-      <input
-        type="text"
-        name="text2"
-        className="form-inputs"
-        placeholder="Top Text"
-      />
-      <input
-        type="text"
-        name="text1"
-        className="form-inputs"
-        placeholder="Bottom Text"
-      />
-      <button type="submit" className="form-button">
-        Get a New Meme Image 🖼
-      </button>
-    </form>
+    <main>
+      <div className="form">
+        <input
+          type="text"
+          placeholder="Top text"
+          className="form--input"
+          name="topText"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          placeholder="Bottom text"
+          className="form--input"
+          name="bottomText"
+          onChange={handleChange}
+        />
+        <button className="form--button" onClick={getMemeImage}>
+          Get a new meme image 🖼
+        </button>
+      </div>
+      <div className="meme">
+        <img src={meme.randomImage} className="meme--image" />
+        <h2 className="meme--text top">{meme.topText}</h2>
+        <h2 className="meme--text bottom">{meme.bottomText}</h2>
+      </div>
+    </main>
   );
 }
-
-export default Meme;

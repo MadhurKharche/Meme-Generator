@@ -1,13 +1,14 @@
-import React from "react";
+import React from "react"
 
-function Header() {
-  return (
-    <div className="navbar">
-      <img src="/images/troll-face.png" alt="Troll_Face_Img" />
-      <h1>Meme Generator</h1>
-      <h3>React Course - Project 3</h3>
-    </div>
-  );
+export default function Header() {
+    return (
+        <header className="header">
+            <img 
+                src="./images/troll-face.png" 
+                className="header--image"
+            />
+            <h2 className="header--title">Meme Generator</h2>
+            <h4 className="header--project">React Course - Project 3</h4>
+        </header>
+    )
 }
-
-export default Header;
